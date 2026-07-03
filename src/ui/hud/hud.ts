@@ -63,14 +63,17 @@ export function renderStatusHud(
   const combatHealth = Math.max(0, Math.min(maxHealth, Math.round(snapshot.state.playerCombat.health ?? health)));
   const healthUnits = Math.min(health, combatHealth);
   const healthFillWidth = Math.floor(319 * (healthUnits / maxHealth));
+  const frameSrc = assetUrl("assets/game/ui/healthbar/Full_HealthBar.png");
+  const portraitSrc = assetUrl("assets/game/ui/healthbar/Portrait_pillador.png");
+  const fillSrc = assetUrl("assets/game/ui/healthbar/UI_StatusBar_Fill_HP.png");
 
   setStableHtml(container, `
     <div class="status-hud__vitals" aria-label="Vida del jugador: ${healthUnits} de ${maxHealth}">
-      <img class="status-hud__vitals-frame" src="/assets/game/ui/healthbar/Full_HealthBar.png" alt="" aria-hidden="true" />
-      <img class="status-hud__portrait" src="/assets/game/ui/healthbar/Portrait_pillador.png" alt="" aria-hidden="true" />
+      <img class="status-hud__vitals-frame" src="${frameSrc}" alt="" aria-hidden="true" />
+      <img class="status-hud__portrait" src="${portraitSrc}" alt="" aria-hidden="true" />
       <div class="status-hud__hp-track" aria-hidden="true">
         <div class="status-hud__hp-fill" style="width: ${healthFillWidth}px">
-          <img src="/assets/game/ui/healthbar/UI_StatusBar_Fill_HP.png" alt="" />
+          <img src="${fillSrc}" alt="" />
         </div>
       </div>
       <span class="status-hud__hp-label">${healthUnits}/${maxHealth}</span>
@@ -121,6 +124,11 @@ function formatClock(now: Date): string {
     hour: "2-digit",
     minute: "2-digit",
   }).format(now);
+}
+
+function assetUrl(path: string): string {
+  const base = import.meta.env.BASE_URL;
+  return `${base}${path.startsWith("/") ? path.slice(1) : path}`;
 }
 
 function escapeHtml(value: string): string {

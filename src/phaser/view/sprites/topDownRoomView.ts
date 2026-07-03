@@ -81,7 +81,6 @@ export function renderTopDownRoom(scene: Phaser.Scene, snapshot: SceneBridgeSnap
 
   drawDoors(scene, graphics, snapshot, transform);
   drawBreakableWalls(graphics, snapshot, transform);
-  drawCombatEnemies(scene, graphics, snapshot, transform);
   drawActiveBomb(scene, graphics, snapshot, transform);
   drawInteractables(scene, graphics, snapshot, transform);
 
@@ -137,33 +136,6 @@ function drawBreakableWalls(
     graphics.lineStyle(2, 0x2b1c18, 0.65);
     graphics.lineBetween(rect.x + 6, rect.y + rect.height - 6, rect.x + rect.width - 6, rect.y + 6);
     graphics.lineBetween(rect.x + rect.width * 0.3, rect.y + 5, rect.x + rect.width * 0.7, rect.y + rect.height - 5);
-  }
-}
-
-function drawCombatEnemies(
-  scene: Phaser.Scene,
-  graphics: Phaser.GameObjects.Graphics,
-  snapshot: SceneBridgeSnapshot,
-  transform: Transform,
-): void {
-  for (const enemy of snapshot.combatEnemies) {
-    const point = toScreenPoint(enemy.x, enemy.y, transform);
-    const radius = enemy.radius * transform.scale;
-    const color = enemy.kind === "boss" ? 0x8d3333 : 0x734f96;
-
-    graphics.fillStyle(color, 0.96);
-    graphics.fillCircle(point.x, point.y, radius);
-    graphics.lineStyle(3, 0x101217, 0.92);
-    graphics.strokeCircle(point.x, point.y, radius);
-
-    scene.add
-      .text(point.x, point.y - radius - 10, enemy.kind === "boss" ? "BOSS" : "EN", {
-        color: "#f5f3e8",
-        fontFamily: "monospace",
-        fontSize: "10px",
-        fontStyle: "700",
-      })
-      .setOrigin(0.5);
   }
 }
 

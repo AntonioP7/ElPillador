@@ -10,8 +10,7 @@ import type { TopDownRoomTransform } from "../sprites/topDownRoomView";
 import { worldToScreenPoint } from "../sprites/topDownRoomView";
 
 type EnemyView = {
-  body: Phaser.GameObjects.Arc | Phaser.GameObjects.Sprite;
-  label?: Phaser.GameObjects.Text;
+  body: Phaser.GameObjects.Sprite;
   lastAnimation?: string;
   lastWorldX?: number;
   lastWorldY?: number;
@@ -40,7 +39,6 @@ export class CombatViewAdapter {
   destroy(): void {
     for (const view of this.enemyViews.values()) {
       view.body.destroy();
-      view.label?.destroy();
     }
     for (const view of this.projectileViews.values()) {
       view.destroy();
@@ -108,7 +106,6 @@ export class CombatViewAdapter {
         }
 
         view.body.destroy();
-        view.label?.destroy();
         this.enemyViews.delete(id);
       }
     }
@@ -118,17 +115,14 @@ export class CombatViewAdapter {
       const radius = enemy.radius * transform.scale;
       const view = this.enemyViews.get(enemy.id) ?? this.createEnemy(enemy);
 
-      view.body.setPosition(point.x, point.y);
-
-      if (view.body instanceof Phaser.GameObjects.Arc) {
-        view.body.setRadius(radius);
-        view.label?.setPosition(point.x, point.y - radius - 10);
-        view.label?.setText(enemy.kind === "boss" ? "BOSS" : "EN");
-      } else {
-        view.body.setDisplaySize(Math.max(28, radius * 2.6), Math.max(28, radius * 2.6));
-        this.syncEnemyAnimation(view, enemy.id, enemy.species, enemy.x, enemy.y, snapshot);
-        this.syncEnemyDamageTint(view.body, enemy.id, snapshot);
+      if (!view) {
+        continue;
       }
+
+      view.body.setPosition(point.x, point.y);
+      view.body.setDisplaySize(Math.max(28, radius * 2.6), Math.max(28, radius * 2.6));
+      this.syncEnemyAnimation(view, enemy.id, enemy.species, enemy.x, enemy.y, snapshot);
+      this.syncEnemyDamageTint(view.body, enemy.id, snapshot);
 
       view.lastWorldX = enemy.x;
       view.lastWorldY = enemy.y;
@@ -248,7 +242,7 @@ export class CombatViewAdapter {
     return view;
   }
 
-  private createEnemy(enemy: SceneBridgeSnapshot["combatEnemies"][number]): EnemyView {
+  private createEnemy(enemy: SceneBridgeSnapshot["combatEnemies"][number]): EnemyView | null {
     if (isSlimeSpecies(enemy.species)) {
       ensureSlimeAnimations(this.scene, enemy.species);
       const body = this.scene.add
@@ -261,23 +255,7 @@ export class CombatViewAdapter {
       return view;
     }
 
-    const body = this.scene.add
-      .circle(0, 0, 16, enemy.kind === "boss" ? 0x8d3333 : 0x734f96, 0.96)
-      .setStrokeStyle(3, 0x101217, 0.92)
-      .setDepth(18);
-    const label = this.scene.add
-      .text(0, 0, enemy.kind === "boss" ? "BOSS" : "EN", {
-        color: "#f5f3e8",
-        fontFamily: "monospace",
-        fontSize: "10px",
-        fontStyle: "700",
-      })
-      .setOrigin(0.5)
-      .setDepth(19);
-    const view = { body, label };
-
-    this.enemyViews.set(enemy.id, view);
-    return view;
+    return null;
   }
 
   private syncEnemyAnimation(
@@ -288,7 +266,7 @@ export class CombatViewAdapter {
     enemyY: number,
     snapshot: SceneBridgeSnapshot,
   ): void {
-    if (!(view.body instanceof Phaser.GameObjects.Sprite) || !isSlimeSpecies(species)) {
+    if (!isSlimeSpecies(species)) {
       return;
     }
 
