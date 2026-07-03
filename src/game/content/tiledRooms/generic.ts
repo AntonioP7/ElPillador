@@ -274,7 +274,7 @@ export function tiledRoomColliders(
 }
 
 export function spawnTiledFromExitDirection(
-  room: Pick<TiledRoomDefinition, "width" | "height"> & Partial<Pick<TiledRoomDefinition, "tileWidth" | "tileHeight">>,
+  room: Pick<TiledRoomDefinition, "width" | "height"> & Partial<Pick<TiledRoomDefinition, "tileWidth" | "tileHeight" | "colliders">>,
   direction: Direction,
   door?: Pick<Rect, "x" | "y" | "width" | "height"> & { direction?: Direction },
 ): PlayerPose {
@@ -284,36 +284,76 @@ export function spawnTiledFromExitDirection(
   const tileHeight = room.tileHeight ?? DEFAULT_TILE_SIZE;
   const spawnDirection = door?.direction ?? oppositeDirection(direction);
   const hasDestinationDoor = Boolean(door?.direction);
+  let pose: PlayerPose;
 
   if (spawnDirection === "left") {
-    return {
+    pose = {
       x: clamp(hasDestinationDoor ? (door?.x ?? 0) + (door?.width ?? 0) + tileWidth : tileWidth, TILED_PLAYER_RADIUS, room.width - TILED_PLAYER_RADIUS),
       y: clamp(hasDestinationDoor ? doorCenterY : room.height / 2, TILED_PLAYER_RADIUS, room.height - TILED_PLAYER_RADIUS),
       facing: "right",
     };
+    return safeSpawnPose(pose, room, { x: 1, y: 0 }, tileWidth, tileHeight);
   }
 
   if (spawnDirection === "right") {
-    return {
+    pose = {
       x: clamp(hasDestinationDoor ? (door?.x ?? room.width) - tileWidth : room.width - tileWidth, TILED_PLAYER_RADIUS, room.width - TILED_PLAYER_RADIUS),
       y: clamp(hasDestinationDoor ? doorCenterY : room.height / 2, TILED_PLAYER_RADIUS, room.height - TILED_PLAYER_RADIUS),
       facing: "left",
     };
+    return safeSpawnPose(pose, room, { x: -1, y: 0 }, tileWidth, tileHeight);
   }
 
   if (spawnDirection === "up") {
-    return {
+    pose = {
       x: clamp(hasDestinationDoor ? doorCenterX : room.width / 2, TILED_PLAYER_RADIUS, room.width - TILED_PLAYER_RADIUS),
       y: clamp(hasDestinationDoor ? (door?.y ?? 0) + (door?.height ?? 0) + tileHeight : tileHeight, TILED_PLAYER_RADIUS, room.height - TILED_PLAYER_RADIUS),
       facing: "down",
     };
+    return safeSpawnPose(pose, room, { x: 0, y: 1 }, tileWidth, tileHeight);
   }
 
-  return {
+  pose = {
     x: clamp(hasDestinationDoor ? doorCenterX : room.width / 2, TILED_PLAYER_RADIUS, room.width - TILED_PLAYER_RADIUS),
     y: clamp(hasDestinationDoor ? (door?.y ?? room.height) - tileHeight : room.height - tileHeight, TILED_PLAYER_RADIUS, room.height - TILED_PLAYER_RADIUS),
     facing: "up",
   };
+  return safeSpawnPose(pose, room, { x: 0, y: -1 }, tileWidth, tileHeight);
+}
+
+function safeSpawnPose(
+  pose: PlayerPose,
+  room: Pick<TiledRoomDefinition, "width" | "height"> & Partial<Pick<TiledRoomDefinition, "colliders">>,
+  nudge: { x: number; y: number },
+  tileWidth: number,
+  tileHeight: number,
+): PlayerPose {
+  if (!spawnOverlapsCollider(pose, room)) {
+    return pose;
+  }
+
+  const step = Math.max(tileWidth, tileHeight);
+
+  for (let index = 1; index <= 8; index += 1) {
+    const candidate = {
+      ...pose,
+      x: clamp(pose.x + nudge.x * step * index, TILED_PLAYER_RADIUS, room.width - TILED_PLAYER_RADIUS),
+      y: clamp(pose.y + nudge.y * step * index, TILED_PLAYER_RADIUS, room.height - TILED_PLAYER_RADIUS),
+    };
+
+    if (!spawnOverlapsCollider(candidate, room)) {
+      return candidate;
+    }
+  }
+
+  return pose;
+}
+
+function spawnOverlapsCollider(
+  pose: Pick<PlayerPose, "x" | "y">,
+  room: Partial<Pick<TiledRoomDefinition, "colliders">>,
+): boolean {
+  return (room.colliders ?? []).some((collider) => circleRectOverlap(pose.x, pose.y, TILED_PLAYER_RADIUS, collider));
 }
 
 function oppositeDirection(direction: Direction): Direction {

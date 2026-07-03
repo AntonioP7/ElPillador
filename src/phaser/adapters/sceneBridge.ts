@@ -816,10 +816,15 @@ function spawnPoseForRoomEntry(
   const runtime = getRoomRuntimeDefinition(roomId);
 
   if (runtime.world) {
+    const room = destinationRoom ?? runtime.world;
+    const destinationDoor = hasTiledDoors(room)
+      ? destinationDoorForEntry(room, previousRoomId, direction, door)
+      : undefined;
+
     return spawnTiledFromExitDirection(
-      destinationRoom ?? runtime.world,
+      room,
       direction,
-      destinationRoom ? destinationDoorForEntry(destinationRoom, previousRoomId, direction, door) : undefined,
+      destinationDoor,
     );
   }
 
@@ -842,14 +847,20 @@ function spawnPoseForRoomEntry(
   return { x: doorCenterX, y: inset, facing: "down" };
 }
 
+function hasTiledDoors(room: unknown): room is Pick<TiledRoomDefinition, "doors"> {
+  return typeof room === "object" && room !== null && "doors" in room && Array.isArray((room as { doors?: unknown }).doors);
+}
+
 function destinationDoorForEntry(
-  destinationRoom: TiledRoomDefinition,
+  destinationRoom: Partial<Pick<TiledRoomDefinition, "doors">>,
   previousRoomId: string | undefined,
   direction: Direction,
   door?: EntryDoorAnchor,
 ): EntryDoorAnchor | undefined {
+  const doors = destinationRoom.doors ?? [];
+
   if (door?.targetSpawn) {
-    const explicitDoor = destinationRoom.doors.find((candidate) => candidate.id === door.targetSpawn);
+    const explicitDoor = doors.find((candidate) => candidate.id === door.targetSpawn);
 
     if (explicitDoor) {
       return explicitDoor;
@@ -857,14 +868,14 @@ function destinationDoorForEntry(
   }
 
   if (previousRoomId) {
-    const returnDoor = destinationRoom.doors.find((candidate) => candidate.targetRoom === previousRoomId);
+    const returnDoor = doors.find((candidate) => candidate.targetRoom === previousRoomId);
 
     if (returnDoor) {
       return returnDoor;
     }
   }
 
-  return destinationRoom.doors.find((candidate) => candidate.direction === oppositeDirection(direction));
+  return doors.find((candidate) => candidate.direction === oppositeDirection(direction));
 }
 
 function oppositeDirection(direction: Direction): Direction {

@@ -27,6 +27,22 @@ describe("generic Tiled room parsing", () => {
     });
   });
 
+  it("nudges a Tiled entry spawn out of colliders", () => {
+    const room = {
+      width: 384,
+      height: 384,
+      tileWidth: 16,
+      tileHeight: 16,
+      colliders: [{ x: 48, y: 176, width: 32, height: 32 }],
+    };
+
+    expect(spawnTiledFromExitDirection(room, "right", { direction: "left", x: 16, y: 176, width: 16, height: 32 })).toEqual({
+      x: 96,
+      y: 192,
+      facing: "right",
+    });
+  });
+
   it("parses locked door objects from the Doors layer", () => {
     const room = parseTiledRoom("TEST", {
       width: 24,
