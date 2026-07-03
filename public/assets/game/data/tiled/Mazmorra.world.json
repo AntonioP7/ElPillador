@@ -1,0 +1,174 @@
+{
+  "maps": [
+    {
+      "fileName": "rooms/DS-E1.json",
+      "height": 384,
+      "width": 384,
+      "x": 1536,
+      "y": 1840
+    },
+    {
+      "fileName": "rooms/DS-E2.json",
+      "height": 384,
+      "width": 384,
+      "x": 768,
+      "y": 2224
+    },
+    {
+      "fileName": "rooms/PZ-E1.json",
+      "height": 384,
+      "width": 384,
+      "x": 1536,
+      "y": 2224
+    },
+    {
+      "fileName": "rooms/PZ-E2.json",
+      "height": 384,
+      "width": 384,
+      "x": 1920,
+      "y": 2224
+    },
+    {
+      "fileName": "rooms/PZ-E3.json",
+      "height": 384,
+      "width": 384,
+      "x": 1536,
+      "y": 2608
+    },
+    {
+      "fileName": "rooms/PZ-E4.json",
+      "height": 384,
+      "width": 384,
+      "x": 1152,
+      "y": 2224
+    },
+    {
+      "fileName": "rooms/SR2.json",
+      "height": 384,
+      "width": 384,
+      "x": 1536,
+      "y": 2992
+    },
+    {
+      "fileName": "rooms/SR18.json",
+      "height": 384,
+      "width": 384,
+      "x": 1920,
+      "y": 2608
+    },
+    {
+      "fileName": "rooms/SS1.json",
+      "height": 384,
+      "width": 384,
+      "x": 1920,
+      "y": 2992
+    },
+    {
+      "fileName": "rooms/SS13.json",
+      "height": 384,
+      "width": 384,
+      "x": 2304,
+      "y": 2608
+    },
+    {
+      "fileName": "rooms/Boss-P.json",
+      "height": 384,
+      "width": 384,
+      "x": 768,
+      "y": 4144
+    },
+    {
+      "fileName": "rooms/CP-G1.json",
+      "height": 384,
+      "width": 384,
+      "x": 384,
+      "y": 2608
+    },
+    {
+      "fileName": "rooms/DS-G1.json",
+      "height": 384,
+      "width": 384,
+      "x": 768,
+      "y": 3376
+    },
+    {
+      "fileName": "rooms/DS-G2.json",
+      "height": 384,
+      "width": 384,
+      "x": 384,
+      "y": 4144
+    },
+    {
+      "fileName": "rooms/MG-G1.json",
+      "height": 384,
+      "width": 384,
+      "x": 384,
+      "y": 3376
+    },
+    {
+      "fileName": "rooms/PZ-G1.json",
+      "height": 384,
+      "width": 384,
+      "x": 768,
+      "y": 2608
+    },
+    {
+      "fileName": "rooms/PZ-G2.json",
+      "height": 384,
+      "width": 384,
+      "x": 768,
+      "y": 2992
+    },
+    {
+      "fileName": "rooms/PZ-G3.json",
+      "height": 384,
+      "width": 384,
+      "x": 768,
+      "y": 3760
+    },
+    {
+      "fileName": "rooms/PZ-G4.json",
+      "height": 384,
+      "width": 384,
+      "x": 384,
+      "y": 3760
+    },
+    {
+      "fileName": "rooms/SR4.json",
+      "height": 384,
+      "width": 384,
+      "x": 0,
+      "y": 3376
+    },
+    {
+      "fileName": "rooms/SR9.json",
+      "height": 384,
+      "width": 384,
+      "x": 384,
+      "y": 2992
+    },
+    {
+      "fileName": "rooms/SS7.json",
+      "height": 384,
+      "width": 384,
+      "x": 0,
+      "y": 2992
+    },
+    {
+      "fileName": "rooms/SS12.json",
+      "height": 384,
+      "width": 384,
+      "x": 1152,
+      "y": 2992
+    },
+    {
+      "fileName": "rooms/PZ-R1.json",
+      "height": 512,
+      "width": 512,
+      "x": 2304,
+      "y": 2096
+    }
+  ],
+  "onlyShowAdjacentMaps": false,
+  "type": "world"
+}

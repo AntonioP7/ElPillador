@@ -1,0 +1,94 @@
+{
+  "key": "Slime3_Hurt_full",
+  "image": "Slime3_Hurt_full.png",
+  "frameWidth": 64,
+  "frameHeight": 64,
+  "columns": 5,
+  "rowsCount": 4,
+  "directionsOrder": [
+    "down",
+    "top",
+    "left",
+    "right"
+  ],
+  "rows": [
+    {
+      "name": "down",
+      "row": 0,
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "frameCount": 5,
+      "visibleColumns": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "top",
+      "row": 1,
+      "frames": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "frameCount": 5,
+      "visibleColumns": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "left",
+      "row": 2,
+      "frames": [
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "frameCount": 5,
+      "visibleColumns": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "right",
+      "row": 3,
+      "frames": [
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frameCount": 5,
+      "visibleColumns": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "frameRate": 10,
+  "repeat": -1
+}

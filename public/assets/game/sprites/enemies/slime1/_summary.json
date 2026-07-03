@@ -1,0 +1,206 @@
+{
+  "Slime1_Attack_full.json": {
+    "down": {
+      "row": 0,
+      "frames": [
+        0,
+        9
+      ],
+      "frameCount": 10
+    },
+    "top": {
+      "row": 1,
+      "frames": [
+        10,
+        19
+      ],
+      "frameCount": 10
+    },
+    "left": {
+      "row": 2,
+      "frames": [
+        20,
+        29
+      ],
+      "frameCount": 10
+    },
+    "right": {
+      "row": 3,
+      "frames": [
+        30,
+        39
+      ],
+      "frameCount": 10
+    }
+  },
+  "Slime1_Death_full.json": {
+    "down": {
+      "row": 0,
+      "frames": [
+        0,
+        9
+      ],
+      "frameCount": 10
+    },
+    "top": {
+      "row": 1,
+      "frames": [
+        10,
+        19
+      ],
+      "frameCount": 10
+    },
+    "left": {
+      "row": 2,
+      "frames": [
+        20,
+        29
+      ],
+      "frameCount": 10
+    },
+    "right": {
+      "row": 3,
+      "frames": [
+        30,
+        39
+      ],
+      "frameCount": 10
+    }
+  },
+  "Slime1_Hurt_full.json": {
+    "down": {
+      "row": 0,
+      "frames": [
+        0,
+        4
+      ],
+      "frameCount": 5
+    },
+    "top": {
+      "row": 1,
+      "frames": [
+        5,
+        9
+      ],
+      "frameCount": 5
+    },
+    "left": {
+      "row": 2,
+      "frames": [
+        10,
+        14
+      ],
+      "frameCount": 5
+    },
+    "right": {
+      "row": 3,
+      "frames": [
+        15,
+        19
+      ],
+      "frameCount": 5
+    }
+  },
+  "Slime1_Idle_full.json": {
+    "down": {
+      "row": 0,
+      "frames": [
+        0,
+        5
+      ],
+      "frameCount": 6
+    },
+    "top": {
+      "row": 1,
+      "frames": [
+        6,
+        11
+      ],
+      "frameCount": 6
+    },
+    "left": {
+      "row": 2,
+      "frames": [
+        12,
+        17
+      ],
+      "frameCount": 6
+    },
+    "right": {
+      "row": 3,
+      "frames": [
+        18,
+        23
+      ],
+      "frameCount": 6
+    }
+  },
+  "Slime1_Run_full.json": {
+    "down": {
+      "row": 0,
+      "frames": [
+        0,
+        7
+      ],
+      "frameCount": 8
+    },
+    "top": {
+      "row": 1,
+      "frames": [
+        8,
+        15
+      ],
+      "frameCount": 8
+    },
+    "left": {
+      "row": 2,
+      "frames": [
+        16,
+        23
+      ],
+      "frameCount": 8
+    },
+    "right": {
+      "row": 3,
+      "frames": [
+        24,
+        31
+      ],
+      "frameCount": 8
+    }
+  },
+  "Slime1_Walk_full.json": {
+    "down": {
+      "row": 0,
+      "frames": [
+        0,
+        7
+      ],
+      "frameCount": 8
+    },
+    "top": {
+      "row": 1,
+      "frames": [
+        8,
+        15
+      ],
+      "frameCount": 8
+    },
+    "left": {
+      "row": 2,
+      "frames": [
+        16,
+        23
+      ],
+      "frameCount": 8
+    },
+    "right": {
+      "row": 3,
+      "frames": [
+        24,
+        31
+      ],
+      "frameCount": 8
+    }
+  }
+}

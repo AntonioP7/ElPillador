@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+.vite/
+tmp/
+.npm-cache/
+.pnpm-store/
+_tmp_*
+pnpm-workspace.yaml.*
+*.local
