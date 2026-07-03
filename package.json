@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "build:pages": "tsc --noEmit && vite build --base=/ElPillador/",
+    "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "tiled:sync": "node scripts/sync-tiled-assets.mjs",

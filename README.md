@@ -51,7 +51,7 @@ https://antoniop7.github.io/ElPillador/
 Para generar el build local equivalente a Pages:
 
 ```bash
-npm run build:pages
+npm run build
 ```
 
 En entornos Codex/Windows sin `node` o `npm` global en el `PATH`, usar:
