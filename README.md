@@ -37,6 +37,23 @@ con el runtime embebido de Codex.
 TypeScript y genera el bundle de produccion. `npm run test` ejecuta las pruebas
 automatizadas.
 
+## GitHub Pages
+
+El repositorio despliega automaticamente a GitHub Pages con GitHub Actions al
+hacer push a `main`.
+
+URL esperada:
+
+```text
+https://antoniop7.github.io/ElPillador/
+```
+
+Para generar el build local equivalente a Pages:
+
+```bash
+npm run build:pages
+```
+
 En entornos Codex/Windows sin `node` o `npm` global en el `PATH`, usar:
 
 ```bat
