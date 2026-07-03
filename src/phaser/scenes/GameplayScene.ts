@@ -485,19 +485,7 @@ export class GameplayScene extends Phaser.Scene {
     }
 
     if (gameAction === "reset" && window.confirm("Reiniciar partida y borrar el progreso actual?")) {
-      this.activeMenuTab = null;
-      this.mapOpen = false;
-      this.pressedDirections.clear();
-      this.playerMovementLockedUntil = -Infinity;
-      this.swordSlashLockedUntil = -Infinity;
-      this.tiledDoorVisualState.clear();
-      const result = this.bridge.dispatch({ type: "reset" });
-
-      if (result.worldChanged) {
-        this.renderAll();
-      } else {
-        this.markUiDirty();
-      }
+      this.resetGame();
       return;
     }
 
@@ -519,6 +507,12 @@ export class GameplayScene extends Phaser.Scene {
   };
 
   private handleKeyDown(event: KeyboardEvent): void {
+    if (event.code === "F8") {
+      event.preventDefault();
+      this.resetGame();
+      return;
+    }
+
     if (this.isGameOver()) {
       event.preventDefault();
       this.retryAfterGameOver();
@@ -1014,6 +1008,17 @@ export class GameplayScene extends Phaser.Scene {
     return this.bridge.getSnapshot().state.playerHealth <= 0;
   }
 
+  private resetGame(): void {
+    this.activeMenuTab = null;
+    this.mapOpen = false;
+    this.pressedDirections.clear();
+    this.playerMovementLockedUntil = -Infinity;
+    this.swordSlashLockedUntil = -Infinity;
+    this.tiledDoorVisualState.clear();
+    const result = this.bridge.dispatch({ type: "reset" });
+    this.renderResult(result);
+  }
+
   private renderGameOver(root: HTMLElement, visible: boolean): void {
     root.hidden = !visible;
 
@@ -1032,14 +1037,7 @@ export class GameplayScene extends Phaser.Scene {
   }
 
   private retryAfterGameOver(): void {
-    this.activeMenuTab = null;
-    this.mapOpen = false;
-    this.pressedDirections.clear();
-    this.playerMovementLockedUntil = -Infinity;
-    this.swordSlashLockedUntil = -Infinity;
-    this.tiledDoorVisualState.clear();
-    const result = this.bridge.dispatch({ type: "reset" });
-    this.renderResult(result);
+    this.resetGame();
   }
 
   private clearTransientSceneObjects(): void {
